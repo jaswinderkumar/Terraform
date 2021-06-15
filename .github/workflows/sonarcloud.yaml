@@ -26,12 +26,20 @@ jobs:
 
       - name: Terraform Security Check
         uses: triat/terraform-security-scan@v2.2.3
+        with:
+          tfsec_output_format: 'sarif'
+          tfsec_output_file: sonarcloud.sarif
 
       - name: Terraform Validate
         run: |
           echo "==> running terraform validate"
           terraform init && terraform validate
 
+      - name: Upload SARIF file
+        uses: github/codeql-action/upload-sarif@v1
+        with:
+          sarif_file: sonarcloud.sarif
+          
       - name: Terraform Plan
         run: |
           echo "==> running terraform plan, please wait..."
