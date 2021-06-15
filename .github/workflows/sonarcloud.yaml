@@ -29,16 +29,16 @@ jobs:
         with:
           tfsec_output_format: 'sarif'
           tfsec_output_file: sonarcloud.sarif
-
-      - name: Terraform Validate
-        run: |
-          echo "==> running terraform validate"
-          terraform init && terraform validate
-
+          
       - name: Upload SARIF file
         uses: github/codeql-action/upload-sarif@v1
         with:
           sarif_file: sonarcloud.sarif
+          
+      - name: Terraform Validate
+        run: |
+          echo "==> running terraform validate"
+          terraform init && terraform validate
           
       - name: Terraform Plan
         run: |
