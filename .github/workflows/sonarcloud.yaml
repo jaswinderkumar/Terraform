@@ -27,13 +27,14 @@ jobs:
       - name: Terraform Security Check
         uses: triat/terraform-security-scan@v2.2.3
         with:
-          tfsec_output_format: 'sarif'
-          tfsec_output_file: sonarcloud.sarif
+          tfsec_output_format: 'junit'
+          tfsec_output_file: sonarcloud-tfsec.xml
           
-      - name: Upload SARIF file
-        uses: github/codeql-action/upload-sarif@v1
+      - name: Publish Unit Test Results
+        uses: EnricoMi/publish-unit-test-result-action@v1
+        if: always()
         with:
-          sarif_file: sonarcloud.sarif
+          files: sonarcloud-tfsec.xml
           
       - name: Terraform Validate
         run: |
