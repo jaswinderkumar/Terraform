@@ -46,11 +46,4 @@ jobs:
       - name: Upload tfsec Report
         uses: github/codeql-action/upload-sarif@v1
         with:
-          sarif_file: tfsec.sarif  
-      
-      - name: Terraform Validate
-        run: |
-          echo "==> running terraform validate"
-          docker run –rm -t -v `pwd`:/src liamg/tfsec ./src –format JUnit > ./TFSecReport/junit.xml
-          
-      
+          sarif_file: tfsec.sarif
