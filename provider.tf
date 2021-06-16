@@ -12,6 +12,6 @@ terraform {
 }
 
 provider "sonarcloud" {
-  host     = var.host
-  scheme   = var.scheme
+  host   = var.host
+  scheme = var.scheme
 }
