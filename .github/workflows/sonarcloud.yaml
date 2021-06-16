@@ -51,14 +51,6 @@ jobs:
       - name: Terraform Validate
         run: |
           echo "==> running terraform validate"
-          terraform init && terraform validate
+          docker run –rm -t -v `pwd`:/src liamg/tfsec ./src –format JUnit > ./TFSecReport/junit.xml
           
-      - name: Terraform Plan
-        run: |
-          echo "==> running terraform plan, please wait..."
-          terraform init && terraform plan -out=plan.out && terraform show -json plan.out > plan.out.json
-
-      - name: Terraform Compliance
-        uses: terraform-compliance/github_action@0.3.0
-        with:
-          plan: plan.out.json
+      
