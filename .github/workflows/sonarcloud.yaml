@@ -28,7 +28,12 @@ jobs:
         uses: tfsec/tfsec-sarif-action@9a83b5c3524f825c020e356335855741fd02745f
         with:
           sarif_file: tfsec.sarif         
-
+        
+      - name: Upload tfsec Report
+        uses: github/codeql-action/upload-sarif@v1
+        with:
+          sarif_file: tfsec.sarif  
+      
       - name: Perform Scan
         uses: ShiftLeftSecurity/scan-action@master
         env:
@@ -37,17 +42,12 @@ jobs:
           SCAN_AUTO_BUILD: true
         with:
           output: reports
-
-      - uses: actions/upload-artifact@v1
-        with:
-          name: reports
-          path: reports
-        
-      - name: Upload tfsec Report
+          type: credscan,terraform
+      - name: Upload report
         uses: github/codeql-action/upload-sarif@v1
         with:
-          sarif_file: tfsec.sarif  
-      
+          sarif_file: reports
+        
       - name: Terraform Validate
         run: |
           echo "==> running terraform validate"
