@@ -12,7 +12,7 @@ terraform {
 }
 
 provider "sonarcloud" {
-  host   = var.host
-  scheme = var.scheme
-  password = "xxxx"
+  host     = var.host
+  scheme   = var.scheme
+  password = "aass"
 }
